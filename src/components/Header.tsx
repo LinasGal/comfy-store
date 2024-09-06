@@ -1,10 +1,9 @@
-
 import { Link, useNavigate } from 'react-router-dom'
 
 
 const Header = () => {
 
-  const user = true
+  const user = false
 
   const handleLogout = () => {
     console.log('logged out')
