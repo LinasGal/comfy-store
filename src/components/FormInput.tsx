@@ -1,7 +1,7 @@
 interface InputTypes {
   label: string
   name: string
-  type: string
+  type: 'email' | 'password' | 'search' | 'text'
   defaultValue?: string
   size?: string
 }

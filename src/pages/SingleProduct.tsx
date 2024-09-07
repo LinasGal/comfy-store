@@ -1,13 +1,10 @@
 import { useState, ChangeEvent } from "react"
 import { useLoaderData, Link } from "react-router-dom"
+import type { ActionFunction } from "react-router"
 import { formatPrice } from "../utils/helpers"
 import { customFetch } from "../utils"
 
-export const loader = async ({ params }: {
-  params: {
-    id: string
-  }
-}) => {
+export const loader: ActionFunction = async ({ params }) => {
   const response = await customFetch(`/products/${params.id}`)
   const product = response.data.data
 
