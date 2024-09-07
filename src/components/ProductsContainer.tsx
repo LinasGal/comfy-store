@@ -14,7 +14,6 @@ interface MetaProps {
 
 const ProductsContainer = () => {
   const [layout, setLayout] = useState('grid')
-  // const [activeStyles, setActiveStyles] = useState('grid')
   const { meta } = useLoaderData() as MetaProps
   const totalProducts = meta.pagination.total
 
