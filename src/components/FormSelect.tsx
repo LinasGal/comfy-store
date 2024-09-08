@@ -3,8 +3,8 @@ interface FormSelectProps {
   name: string,
   label: string,
   list: string[],
-  defaultValue: string,
-  size: string
+  defaultValue?: string,
+  size?: string
 }
 
 

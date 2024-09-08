@@ -1,5 +1,5 @@
 import { Form, useLoaderData, Link } from 'react-router-dom'
-import { FormInput, FormSelect } from './index'
+import { FormInput, FormSelect, FormRange, FormCheckbox } from './index'
 
 
 interface MetaProps {
@@ -15,6 +15,8 @@ interface ParamsProps {
   company: string,
   category: string,
   order: string,
+  price: string,
+  shipping: string
 }
 
 
@@ -22,7 +24,10 @@ interface ParamsProps {
 const Filters = () => {
   const { meta: { categories, companies }, params } = useLoaderData() as MetaProps
 
-  const { search, company, category, order } = params
+  const { search, company, category, order, price, shipping } = params
+
+  const isShippingFree = shipping === 'on' ? true : false
+
 
   return (
     <Form className='bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center'>
@@ -62,6 +67,12 @@ const Filters = () => {
         defaultValue={order}
 
       />
+      {/* Price */}
+      <FormRange name='price' label='select price' size='range-sm' price={price} />
+
+      {/* Shipping */}
+      <FormCheckbox label='free shipping' name='shipping' size='checkbox-sm' defaultValue={isShippingFree} />
+
       {/* BUTTONS */}
       <button type='submit' className='btn btn-primary btn-sm uppercase'>
         search
