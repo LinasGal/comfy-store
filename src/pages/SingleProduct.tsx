@@ -29,8 +29,8 @@ interface ProductProps {
 const SingleProduct = () => {
   const { product: { attributes: { image, title, price, description, colors, company } } } = useLoaderData() as ProductProps
   const dollarsAmount = formatPrice(price)
-  const [productColor, setProductColor] = useState<string>(colors[0])
-  const [amount, setAmount] = useState<number>(1)
+  const [productColor, setProductColor] = useState(colors[0])
+  const [amount, setAmount] = useState(1)
 
 
   const handleAmount = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -100,10 +100,7 @@ const SingleProduct = () => {
               value={amount}
               onChange={handleAmount}
             >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-
+              {generateAmountOptions(10)}
             </select>
           </div>
           {/* CART BUTTON */}
@@ -120,5 +117,18 @@ const SingleProduct = () => {
     </section>
   )
 }
+
+
+
+export const generateAmountOptions = (value: number) => {
+  return Array.from({ length: value }, (_, index) => {
+    const amount = index + 1
+
+    return (
+      <option key={amount} value={amount}>{amount}</option>
+    )
+  })
+}
+
 
 export default SingleProduct
