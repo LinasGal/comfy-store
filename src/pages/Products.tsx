@@ -1,5 +1,5 @@
 import { customFetch } from "../utils"
-import { Filters, ProductsContainer } from "../components"
+import { Filters, ProductsContainer, PaginationContainer } from "../components"
 import type { ActionFunction } from "react-router"
 
 const url = '/products'
@@ -22,6 +22,7 @@ const Products = () => {
     <>
       <Filters />
       <ProductsContainer />
+      <PaginationContainer />
     </>
   )
 }
