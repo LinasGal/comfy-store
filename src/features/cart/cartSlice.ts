@@ -64,7 +64,7 @@ const cartSlice = createSlice({
       return initialState;
     },
     removeItem: (state, { payload }) => {
-      const { cartID } = payload.product;
+      const { cartID } = payload;
       const item = state.cartItems.find((i) => i.cartID === cartID)!;
 
       state.cartItems = state.cartItems.filter((i) => i.cartID !== item.cartID);
@@ -77,7 +77,7 @@ const cartSlice = createSlice({
       toast.error('Item removed from cart');
     },
     editItem: (state, { payload }) => {
-      const { cartID, amount } = payload.product;
+      const { cartID, amount } = payload;
       const item = state.cartItems.find((i) => i.cartID === cartID)!;
 
       state.numItemsInCart += amount - item.amount;
