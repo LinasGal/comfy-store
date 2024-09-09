@@ -3,12 +3,13 @@ import { FaBarsStaggered } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { NavLinks } from '../components/index'
 import { useEffect, useState } from 'react'
-
+import { useSelector } from 'react-redux'
 
 const themes = {
   light: 'light',
   dark: 'dracula'
 }
+
 
 
 const getThemeFromLocalStorage = () => {
@@ -25,8 +26,11 @@ const Navbar = () => {
     setTheme(newTheme)
 
   }
-
-  const numItemsInCart = 99
+  const numItemsInCart = useSelector((store: {
+    cart: {
+      numItemsInCart: number
+    }
+  }) => store.cart.numItemsInCart)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)

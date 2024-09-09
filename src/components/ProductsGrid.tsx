@@ -49,7 +49,7 @@ const SingleProduct = ({ title, price, image, id }: SingleProductProps) => {
         <img src={image} alt={title} className="rounded-xl h-64 md:h-48 w-full object-cover" />
       </figure>
       <div className="card-body items-center text-center">
-        <h2>{title}</h2>
+        <h2 className="capitalize">{title}</h2>
         <span className="text-secondary">{formatPrice(price)}</span>
       </div>
     </Link>)
