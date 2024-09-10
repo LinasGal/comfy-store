@@ -1,16 +1,11 @@
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../features/hooks'
 import { CartItemsList, SectionTitle, CartTotals } from '../components'
 import { Link } from 'react-router-dom'
 
 
 const Cart = () => {
-  const { user } = useSelector((store: { user: { user: null | object } }) => store.user)
-
-  const numItemsInCart = useSelector((store: {
-    cart: {
-      numItemsInCart: number
-    }
-  }) => store.cart.numItemsInCart)
+  const { user } = useAppSelector((store) => store.user)
+  const { numItemsInCart } = useAppSelector((store) => store.cart)
 
   if (numItemsInCart === 0) {
     return <SectionTitle text='Your cart is empty' />

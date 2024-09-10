@@ -2,20 +2,16 @@ import { BsCart3, BsMoonFill, BsSunFill } from 'react-icons/bs'
 import { FaBarsStaggered } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { NavLinks } from '../components/index'
-import { useDispatch, useSelector } from 'react-redux'
 import { toggleTheme } from '../features/user/userSlice'
+import { useAppDispatch, useAppSelector } from '../features/hooks'
 
 
 const Navbar = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const { theme } = useSelector((store: { user: { theme: string } }) => store.user)
+  const { theme } = useAppSelector((store) => store.user)
 
-  const numItemsInCart = useSelector((store: {
-    cart: {
-      numItemsInCart: number
-    }
-  }) => store.cart.numItemsInCart)
+  const { numItemsInCart } = useAppSelector((store) => store.cart)
 
 
   const handleTheme = () => {

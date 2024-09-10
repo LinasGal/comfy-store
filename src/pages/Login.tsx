@@ -2,11 +2,11 @@ import { FormInput, SubmitBtn } from '../components/index'
 import { Form, Link, redirect, useNavigate } from 'react-router-dom'
 import { customFetch } from '../utils'
 import { toast } from 'react-toastify'
-import { useDispatch } from 'react-redux'
 import { loginUser } from '../features/user/userSlice'
+import { useAppDispatch } from '../features/hooks'
+import type { ActionFunctionArgs } from "react-router"
 
-
-export const action = (store) => async ({ request }: { request: Request }) => {
+export const action = (store) => async ({ request }: ActionFunctionArgs) => {
 
   const formData = await request.formData()
   const data = Object.fromEntries(formData)
@@ -27,7 +27,7 @@ export const action = (store) => async ({ request }: { request: Request }) => {
 
 
 const Login = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const loginAsGuestUser = async () => {

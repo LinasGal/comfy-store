@@ -1,10 +1,9 @@
-import { useSelector } from "react-redux"
+import {  useAppSelector } from '../features/hooks'
 import { formatPrice } from "../utils/helpers"
 
-import {CartProps} from '../utils/types'
 
 const CartTotals = () => {
-  const { cartTotal, shipping, tax, orderTotal } = useSelector((store: CartProps) => store.cart)
+  const { cartTotal, shipping, tax, orderTotal } = useAppSelector((store) => store.cart)
 
 
   return (

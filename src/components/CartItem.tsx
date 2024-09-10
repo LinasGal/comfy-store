@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react'
 
-import { useDispatch } from "react-redux"
+import { useAppDispatch} from '../features/hooks'
 import { removeItem, editItem } from "../features/cart/cartSlice"
 import { formatPrice } from "../utils/helpers"
 import { generateAmountOptions } from "../pages/SingleProduct"
@@ -9,7 +9,7 @@ import { CartItemProps } from '../utils/types'
 
 const CartItem = ({ cartItem }: { cartItem: CartItemProps }) => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { cartID, title, price, image, amount, company, productColor } = cartItem
 
   const removeItemFromTheCart = () => {

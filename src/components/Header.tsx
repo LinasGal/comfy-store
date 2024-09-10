@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../features/hooks'
 import { Link, useNavigate } from 'react-router-dom'
 import { logoutUser } from '../features/user/userSlice'
 import { clearCart } from '../features/cart/cartSlice'
 
 
 const Header = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { user } = useSelector((store: { user: { user: { username: string } } }) => store.user)
+
+  const { user } = useAppSelector((store) => store.user)
 
   const handleLogout = () => {
     navigate('/')
@@ -15,7 +16,7 @@ const Header = () => {
     dispatch(clearCart())
   }
 
-  
+
   return (
     <header className='bg-neutral py-2 text-neutral-content'>
       <div className='align-element flex justify-center sm:justify-end'>

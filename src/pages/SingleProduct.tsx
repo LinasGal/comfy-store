@@ -3,7 +3,7 @@ import { useLoaderData, Link } from "react-router-dom"
 import type { ActionFunction } from "react-router"
 import { formatPrice } from "../utils/helpers"
 import { customFetch } from "../utils"
-import { useDispatch } from "react-redux"
+import { useAppDispatch } from '../features/hooks'
 import { addItem } from "../features/cart/cartSlice"
 
 
@@ -35,7 +35,7 @@ const SingleProduct = () => {
   const [productColor, setProductColor] = useState(colors[0])
   const [amount, setAmount] = useState(1)
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const cartProduct = {
     cartID: id + productColor,

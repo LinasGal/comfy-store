@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux"
+import { useAppSelector } from '../features/hooks'
 import { CartTotals, CheckoutForm, SectionTitle } from "../components"
 import { redirect } from "react-router-dom"
 import { toast } from "react-toastify"
-
-import { RootState } from '../features/store'
 
 export const loader = (store) => async () => {
   const user = store.getState().user.user
@@ -17,7 +15,7 @@ export const loader = (store) => async () => {
 
 const Checkout = () => {
 
-  const { cartTotal } = useSelector((store: RootState) => store.cart)
+  const { cartTotal } = useAppSelector((store) => store.cart)
 
   if (!cartTotal) {
     return <SectionTitle text="Your cart is empty" />

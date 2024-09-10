@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../features/hooks'
 import { NavLink } from 'react-router-dom'
 
 
@@ -11,7 +11,7 @@ const links = [
   { id: 6, url: 'orders', text: 'orders' },
 ]
 const NavLinks = () => {
-  const { user } = useSelector((store: { user: { user: null | object } }) => store.user)
+  const { user } = useAppSelector((store) => store.user)
 
   return (
     <>
