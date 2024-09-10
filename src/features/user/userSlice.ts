@@ -12,8 +12,23 @@ const getThemeFromLocalStorage = () => {
   return theme;
 };
 
-const initialState = {
-  user: { username: 'Useris' },
+const getUserFromLocalStorage = () => {
+  const data = localStorage.getItem('user') as string
+  return JSON.parse(data) || null;
+};
+
+interface UserProps {
+  username: string;
+  token:string
+}
+
+interface InitialStateProps {
+  user: UserProps | null;
+  theme: string;
+}
+
+const initialState: InitialStateProps = {
+  user: getUserFromLocalStorage(),
   theme: getThemeFromLocalStorage(),
 };
 
@@ -21,8 +36,18 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUser: (state, { payload }) => {},
-    logoutUser: (state, { payload }) => {},
+    loginUser: (state, { payload }) => {
+      const user = { ...payload.user, token: payload.jwt };
+      state.user = user;
+
+      localStorage.setItem('user', JSON.stringify(user));
+    },
+    logoutUser: (state) => {
+      state.user = null;
+
+      localStorage.removeItem('user');
+      toast.success('Logged out successfully');
+    },
     toggleTheme: (state) => {
       state.theme = state.theme === themes.light ? themes.dark : themes.light;
 

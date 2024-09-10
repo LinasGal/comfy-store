@@ -1,11 +1,54 @@
 import { FormInput, SubmitBtn } from '../components/index'
-import { Form, Link } from 'react-router-dom'
+import { Form, Link, redirect, useNavigate } from 'react-router-dom'
+import { customFetch } from '../utils'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../features/user/userSlice'
+
+
+export const action = (store) => async ({ request }: { request: Request }) => {
+
+  const formData = await request.formData()
+  const data = Object.fromEntries(formData)
+
+  try {
+    const response = await customFetch.post('auth/local', data)
+    store.dispatch(loginUser(response.data))
+
+    toast.success('Logged in successfully')
+    return redirect('/')
+
+  } catch (error) {
+    toast.error('details are missing')
+    return null
+  }
+
+}
+
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const loginAsGuestUser = () => {
-    console.log('guest')
+  const loginAsGuestUser = async () => {
+    try {
+      const response = await customFetch.post('/auth/local', {
+        identifier: 'test@test.com',
+        password: 'secret'
+      })
+
+      dispatch(loginUser(response.data))
+      toast.success('welcome guest user')
+      navigate('/')
+
+    } catch (error) {
+      console.log(error)
+
+      toast.error('guest user login error.please try later.')
+    }
   }
+
+
   return (
     <section className='h-screen grid place-items-center'>
       <Form
