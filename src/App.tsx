@@ -1,4 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+
+
 import {
   HomeLayout,
   Landing,
@@ -21,6 +25,7 @@ import { loader as LandingLoader } from './pages/Landing'
 import { loader as SingleProductLoader } from './pages/SingleProduct'
 import { loader as ProductsLoader } from './pages/Products'
 import { loader as CheckoutLoader } from './pages/Checkout'
+import { loader as OrdersLoader } from './pages/Orders'
 
 //actions
 import { action as registerAction } from './pages/Register'
@@ -28,6 +33,16 @@ import { action as loginAction } from './pages/Login'
 import { action as checkoutAction } from './components/CheckoutForm'
 //store
 import { store } from './features/store'
+
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5
+    }
+  }
+})
+
 
 
 const router = createBrowserRouter([{
@@ -39,18 +54,18 @@ const router = createBrowserRouter([{
       index: true,
       element: <Landing />,
       errorElement: <ErrorElement />,
-      loader: LandingLoader
+      loader: LandingLoader(queryClient)
     },
     {
       path: 'products',
       element: <Products />,
-      loader: ProductsLoader
+      loader: ProductsLoader(queryClient)
     },
     {
       path: 'products/:id',
       element: <SingleProduct />,
       errorElement: <ErrorElement />,
-      loader: SingleProductLoader
+      loader: ({ params }) => SingleProductLoader(queryClient)({ params: { id: params.id! } })
     },
     {
       path: 'cart',
@@ -61,11 +76,12 @@ const router = createBrowserRouter([{
       path: 'checkout',
       element: <Checkout />,
       loader: CheckoutLoader(store),
-      action: checkoutAction(store)
+      action: checkoutAction(store, queryClient)
     },
     {
       path: 'orders',
       element: <Orders />,
+      loader: OrdersLoader(store, queryClient)
     },
   ],
 },
@@ -81,10 +97,11 @@ const router = createBrowserRouter([{
   errorElement: <Error />,
   action: registerAction
 },])
-
 const App = () => {
   return (
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }
 

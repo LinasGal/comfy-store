@@ -3,11 +3,6 @@ import { Link, useLoaderData } from "react-router-dom"
 //helpers
 import { formatPrice } from "../utils/helpers"
 
-
-interface DataProps {
-  products: object
-}
-
 interface ProductProps {
   id: number,
   attributes: {
@@ -16,15 +11,18 @@ interface ProductProps {
     image: string
   }
 }
+interface LoaderDataProps {
+  products: ProductProps[]
+}
 
 
 const ProductsGrid = () => {
-  const data = useLoaderData() as DataProps
-  const products = data.products as ProductProps[]
+  const data = useLoaderData() as LoaderDataProps
+  const products = data.products
 
   return (
     <div className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {products.map((product: ProductProps) => {
+      {products.map((product) => {
         const { id, attributes: { title, price, image } } = product
 
         return < SingleProduct key={id} id={id} title={title} price={price} image={image} />

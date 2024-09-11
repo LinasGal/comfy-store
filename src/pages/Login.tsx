@@ -6,7 +6,10 @@ import { loginUser } from '../features/user/userSlice'
 import { useAppDispatch } from '../features/hooks'
 import type { ActionFunctionArgs } from "react-router"
 
-export const action = (store) => async ({ request }: ActionFunctionArgs) => {
+import type { Store } from '@reduxjs/toolkit'
+
+
+export const action = (store: Store) => async ({ request }: ActionFunctionArgs) => {
 
   const formData = await request.formData()
   const data = Object.fromEntries(formData)
@@ -19,6 +22,7 @@ export const action = (store) => async ({ request }: ActionFunctionArgs) => {
     return redirect('/')
 
   } catch (error) {
+    console.log(error)
     toast.error('details are missing')
     return null
   }

@@ -4,17 +4,14 @@ import { useState } from 'react'
 import { BsFillGridFill, BsList } from 'react-icons/bs'
 
 
-interface MetaProps {
-  meta: {
-    pagination: {
-      total: number
-    }
-  }
+interface LoaderDataProps {
+  meta: MetaProps
 }
+
 
 const ProductsContainer = () => {
   const [layout, setLayout] = useState('grid')
-  const { meta } = useLoaderData() as MetaProps
+  const { meta } = useLoaderData() as LoaderDataProps
   const totalProducts = meta.pagination.total
 
   const setActiveStyles = (pattern: string) => {

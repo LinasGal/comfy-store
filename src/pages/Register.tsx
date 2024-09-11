@@ -2,6 +2,7 @@ import { FormInput, SubmitBtn } from '../components/index'
 import { Form, Link, redirect } from 'react-router-dom'
 import { customFetch } from '../utils'
 import { toast } from 'react-toastify'
+import { throwErrorWithResponse } from '../utils/helpers'
 
 
 export const action = async ({ request }: { request: Request }) => {
@@ -15,15 +16,10 @@ export const action = async ({ request }: { request: Request }) => {
     return redirect('/login')
 
 
-  } catch (error) {
+  } catch (error: unknown) {
 
-    const errorMessage =
-      error?.response?.data?.error?.message ||
-      'Please double check your credentials'
+    return throwErrorWithResponse(error, 'Please double check your credentials')
 
-    toast.error(errorMessage)
-
-    return null
   }
 }
 

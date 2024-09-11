@@ -2,18 +2,20 @@ import { useAppDispatch, useAppSelector } from '../features/hooks'
 import { Link, useNavigate } from 'react-router-dom'
 import { logoutUser } from '../features/user/userSlice'
 import { clearCart } from '../features/cart/cartSlice'
+import { useQueryClient } from '@tanstack/react-query'
 
 
 const Header = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
+  const queryClient = useQueryClient()
   const { user } = useAppSelector((store) => store.user)
 
   const handleLogout = () => {
     navigate('/')
     dispatch(logoutUser())
     dispatch(clearCart())
+    queryClient.removeQueries()
   }
 
 

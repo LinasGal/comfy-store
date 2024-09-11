@@ -3,7 +3,10 @@ import { CartTotals, CheckoutForm, SectionTitle } from "../components"
 import { redirect } from "react-router-dom"
 import { toast } from "react-toastify"
 
-export const loader = (store) => async () => {
+import type { Store } from '@reduxjs/toolkit'
+
+
+export const loader = (store: Store) => async () => {
   const user = store.getState().user.user
 
   if (!user) {

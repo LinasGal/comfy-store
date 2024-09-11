@@ -1,12 +1,7 @@
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom"
 
-interface MetaProps {
-  meta: {
-    pagination: {
-      page: number,
-      pageCount: number
-    }
-  }
+interface LoaderDataProps {
+  meta: MetaProps
 }
 
 const PaginationContainer = () => {
@@ -15,7 +10,7 @@ const PaginationContainer = () => {
       pageCount,
       page
     }
-  } } = useLoaderData() as MetaProps
+  } } = useLoaderData() as LoaderDataProps
 
   const { search, pathname } = useLocation()
   const navigate = useNavigate()

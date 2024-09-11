@@ -1,20 +1,29 @@
 import { useState, ChangeEvent } from "react"
 import { useLoaderData, Link } from "react-router-dom"
-import type { ActionFunction } from "react-router"
 import { formatPrice } from "../utils/helpers"
 import { customFetch } from "../utils"
 import { useAppDispatch } from '../features/hooks'
 import { addItem } from "../features/cart/cartSlice"
 
+import { QueryClient } from '@tanstack/react-query'
 
-export const loader: ActionFunction = async ({ params }) => {
-  const response = await customFetch(`/products/${params.id}`)
+
+
+const singleProductQuery = (id: number) => {
+  return {
+    queryKey: ['singleProduct', id],
+    queryFn: () => customFetch(`/products/${id}`)
+  }
+}
+
+export const loader = (queryClient: QueryClient) => async ({ params }: { params: { id: string } }) => {
+  const response = await queryClient.ensureQueryData(singleProductQuery(parseInt(params.id)))
   const product = response.data.data
 
   return { product }
 }
 
-interface ProductProps {
+interface LoaderDataProps {
   product: {
     attributes: {
       title: string,
@@ -30,7 +39,7 @@ interface ProductProps {
 
 
 const SingleProduct = () => {
-  const { product: { attributes: { image, title, price, description, colors, company }, id } } = useLoaderData() as ProductProps
+  const { product: { attributes: { image, title, price, description, colors, company }, id } } = useLoaderData() as LoaderDataProps
   const dollarsAmount = formatPrice(price)
   const [productColor, setProductColor] = useState(colors[0])
   const [amount, setAmount] = useState(1)
