@@ -1,15 +1,6 @@
 import { Form, useLoaderData, Link } from 'react-router-dom'
 import { FormInput, FormSelect, FormRange, FormCheckbox } from './index'
 
-
-interface MetaProps {
-  meta: {
-    categories: string[],
-    companies: string[]
-  },
-  params: ParamsProps
-}
-
 interface ParamsProps {
   search: string,
   company: string,
@@ -19,10 +10,14 @@ interface ParamsProps {
   shipping: string
 }
 
+interface LoaderDataProps {
+  meta: MetaProps,
+  params: ParamsProps
+}
 
 
 const Filters = () => {
-  const { meta: { categories, companies }, params } = useLoaderData() as MetaProps
+  const { meta: { categories, companies }, params } = useLoaderData() as LoaderDataProps
 
   const { search, company, category, order, price, shipping } = params
 
